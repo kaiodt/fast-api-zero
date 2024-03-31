@@ -3,8 +3,10 @@ version: "3"
 services:
   fastzero_database:
     image: postgres
-    env_file:
-      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
@@ -12,8 +14,8 @@ services:
   
   fastzero_app:
     image: fastzero_app
-    env_file:
-      - .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@fastzero_database:5432/${POSTGRES_DB}
     entrypoint: ./entrypoint.sh
     build:
       context: .

@@ -102,7 +102,7 @@ def test_list_todos_filter_combination(session, client, user, token):
             5,
             user_id=user.id,
             title='Test Todo 1',
-            description='Combination description',
+            description='Todo description',
             state=TodoState.done,
         )
     )
@@ -112,7 +112,7 @@ def test_list_todos_filter_combination(session, client, user, token):
             5,
             user_id=user.id,
             title='Test Todo 2',
-            description='Other todo description',
+            description='Other todo',
             state=TodoState.todo,
         )
     )
@@ -120,7 +120,7 @@ def test_list_todos_filter_combination(session, client, user, token):
     session.commit()
 
     response = client.get(
-        '/todos/?title=Test Todo 1&description=combination&state=done',
+        '/todos/?title=Test Todo 1&description=description&state=done',
         headers={'Authorization': f'Bearer {token}'},
     )
 
